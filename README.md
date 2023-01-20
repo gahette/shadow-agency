@@ -21,7 +21,7 @@ Consignes techniques :
 * Les cibles ont un nom, un prénom, une date de naissance, un nom de code, une nationalité.
 * Les contacts ont un nom, un prénom, une date de naissance, un nom de code, une nationalité.
 * Les planques ont un code, une adresse, un pays, un type.
-* Les missions ont un titre, une description, un nom de code, un pays, 1 ou plusieurs agents, 1 ou plusieurs contacts, 1 ou plusieurs cibles, un type de mission (Surveillance, Assassinat, Infiltration …), un statut (En préparation, en cours, terminé, échec), 0 ou plusieurs planque, 1 spécialité requise, date de début, date de fin.
+* Les missions ont un titre, une description, un nom de code, un pays, 1 ou plusieurs agents, 1 ou plusieurs contacts, 1 ou plusieurs cibles, un type de mission (Surveillance, Assassinat, Infiltration …), un statut (En préparation, en cours, terminé, échec), 0 ou plusieurs planques, 1 spécialité requise, date de début, date de fin.
 * Les administrateurs ont un nom, un prénom, une adresse mail, un mot de passe, une date de création.
 
 **Règle métier :**
@@ -48,14 +48,14 @@ Il faut réaliser le projet en programmation orienté objet, de type MVC (Model 
 
 ## Initialisation du projet
 
-Mon projet est fait sous macos avec PHP 8
+Mon projet est fait sous macos avec PHP 7
 
-* mise en place d'un autoloading en instalant composer.
+* mise en place d'un autoloading en installant composer.
 
 ```bash
 composer ini
 ```
-avec les paramètres suivant :
+Avec les paramètres suivants :
 
 ```{
 "name": "jbm/secret_agency",
@@ -91,6 +91,8 @@ composer dump-autoload
 ```bash
 composer start
 ```
-- pour stoper le serveur
+- pour stopper le serveur
 
     - faire "control c" 
+
+

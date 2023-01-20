@@ -15,11 +15,11 @@ class DBConnection
 
     /**
      * @param $dbname
-     * @param $host
-     * @param $username
-     * @param $password
+     * @param string $host
+     * @param string $username
+     * @param string $password
      */
-    public function __construct($dbname, $host = 'localhost', $username = 'root', $password = 'root')
+    public function __construct($dbname, string $host = 'localhost', string $username = 'root', string $password = 'root')
     {
         $this->dbname = $dbname;
         $this->host = $host;
@@ -39,7 +39,6 @@ class DBConnection
     public function query($statement)
     {
         $req = $this->getPDO()->query($statement);
-        $datas = $req->fetchAll();
-        return $datas;
+        return $req->fetchAll();
     }
 }
