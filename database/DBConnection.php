@@ -6,12 +6,11 @@ use PDO;
 
 class DBConnection
 {
-    private $dbname;
-    private $host;
-    private $username;
-    private $password;
-
-    private $pdo;
+    private string $dbname;
+    private string $host;
+    private string $username;
+    private string $password;
+    private PDO $pdo;
 
     /**
      * @param $dbname
@@ -19,7 +18,7 @@ class DBConnection
      * @param string $username
      * @param string $password
      */
-    public function __construct($dbname, string $host = 'localhost', string $username = 'root', string $password = 'root')
+    public function __construct(string $dbname, string $host = 'localhost', string $username = 'root', string $password = 'root')
     {
         $this->dbname = $dbname;
         $this->host = $host;

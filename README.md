@@ -48,7 +48,8 @@ Il faut réaliser le projet en programmation orienté objet, de type MVC (Model 
 
 ## Initialisation du projet
 
-Mon projet est fait sous macos avec PHP 7
+Mon projet est fait sous macos avec PHP 7,
+avec Bootstrap
 
 * mise en place d'un autoloading en installant composer.
 
