@@ -6,16 +6,23 @@
       "name": "jbm"
     }
   ],
+  "scripts": {
+    "start": "php -S localhost:8000 -t public"
+  },
+  "config": {
+    "process-timeout": 0
+  },
   "autoload": {
     "psr-4": {
-      "Router\\": "routes/",
       "Database\\": "database/",
-      "App\\": "app/"
+      "App\\": "src/"
     }
   },
   "require": {
     "ext-pdo": "*",
-    "fzaninotto/faker": "^1.9",
-    "vlucas/phpdotenv": "^5.5"
+    "vlucas/phpdotenv": "^5.5",
+    "altorouter/altorouter": "^2.0",
+    "symfony/var-dumper": "^5.4",
+    "filp/whoops": "^2.14"
   }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="secret_agency@localhost" uuid="7951762b-e305-4c5a-b6c1-825469ca67f9">
+    <data-source source="LOCAL" name="shadow_agency@localhost" uuid="ba9de0d3-91ea-4e93-b09c-5a0fc21c769b">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/secret_agency</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/shadow_agency</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
