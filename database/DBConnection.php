@@ -2,7 +2,13 @@
 
 namespace Database;
 
+use Dotenv\Dotenv;
 use PDO;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
 
 class DBConnection
 {
@@ -12,28 +18,24 @@ class DBConnection
     private string $password;
     private PDO $pdo;
 
-    /**
-     * @param $dbname
-     * @param string $host
-     * @param string $username
-     * @param string $password
-     */
-    public function __construct(string $dbname, string $host, string $username, string $password)
+
+    public function __construct()
     {
-        $this->dbname = $dbname;
-        $this->host = $host;
-        $this->username = $username;
-        $this->password = $password;
+        $this->dbname = $_ENV["DB_NAME"];
+        $this->host = $_ENV["DB_HOST"];
+        $this->username = $_ENV["DB_USER"];
+        $this->password = $_ENV["DB_PASS"];
     }
 
     public function getPDO(): PDO
     {
-        return $this->pdo ?? $this->pdo = new PDO("mysql:dbname={$this->dbname};host={$this->host}", $this->username, $this->password, [
+        return $this->pdo ?? $this->pdo = new PDO("mysql:dbname=$this->dbname;host=$this->host", $this->username, $this->password, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET CHARACTER SET UTF8MB4'
         ]);
     }
+
 
 //    public function query($statement)
 //    {
