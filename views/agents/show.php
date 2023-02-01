@@ -6,6 +6,8 @@ use App\Model\Nationalities;
 use Database\DBConnection;
 
 
+
+
 $db = new DBConnection();
 $query = $db->getPDO()->prepare('SELECT * FROM agents WHERE agents_id = :id');
 $query->execute(['id' => $id]);
@@ -23,9 +25,11 @@ WHERE an.agents_agents_id = :id");
 $query->execute(['id' => $agent->getAgentsId()]);
 $query->setFetchMode(PDO::FETCH_CLASS, Nationalities::class);
 $nationalities = $query->fetchAll();
+
+$title = "Agents {$agent->getAgentsLastName()}";
 ?>
 
-<h1><?= e($agent->getAgentsLastName()) ?></h1>
+<h1>Agent <?= e($agent->getAgentsLastName()) ?></h1>
 <p><?= $agent->getAgentsFirstName() ?></p>
 <p class="text-muted">Né le <?= $agent->getAgentsBod()->format('d F Y') ?></p>
 <?php foreach ($nationalities as $nationality): ?>
