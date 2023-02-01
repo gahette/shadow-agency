@@ -1,10 +1,11 @@
 <?php
 
-use App\Model\Agents;
+
+use App\Model\Nationalities;
 use App\URL;
 use Database\DBConnection;
 
-$title = 'Agents';
+$title = 'Pays';
 
 $db = new DBConnection();
 
@@ -14,10 +15,10 @@ $currentPage = URL::getPositiveInt('page', 1);
 
 //Récupération du nombre d'agents sous forme de tableau numérique avec seulement la premiere colonne
 //forçage de type avec (int)
-$count = (int)$db->getPDO()->query("SELECT COUNT('agents_id') FROM agents")->fetch(PDO::FETCH_NUM)[0];
+$count = (int)$db->getPDO()->query("SELECT COUNT('nationalities_id') FROM nationalities")->fetch(PDO::FETCH_NUM)[0];
 
 //variable d'élément par page
-$perPage = 12;
+$perPage = 20;
 
 //calcul du nombre de pages
 $pages = ceil($count / $perPage);
@@ -29,24 +30,23 @@ if ($currentPage > $pages) {
 $offset = $perPage * ($currentPage - 1);
 
 
-$query = $db->getPDO()->query("SELECT * FROM agents ORDER BY agents_lastname LIMIT $perPage OFFSET $offset");
-$agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
+$query = $db->getPDO()->query("SELECT * FROM nationalities ORDER BY nationalities_name LIMIT $perPage OFFSET $offset");
+$nationalities = $query->fetchAll(PDO::FETCH_CLASS, Nationalities::class);
 ?>
 
 
-<h1>Mes agents </h1>
+<h1>Pays </h1>
 
 
 <div class="row">
-    <?php foreach ($agents as $agent): ?>
+    <?php foreach ($nationalities as $nationality): ?>
         <div class="col-md-3">
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title"><?= htmlentities($agent->getAgentsLastname()) ?></h5>
-                    <p><?= nl2br(htmlentities($agent->getAgentsFirstname())) ?></p>
-                    <p class="text-muted"><?= $agent->getAgentsBod()->format('d/m/Y') ?></p>
+                    <h5 class="card-title"><?= htmlentities($nationality->getNationalitiesName()) ?></h5>
                     <p>
-                        <a href="<?= $router->url('show', ['id' => $agent->getAgentsId()]) ?>" class="btn btn-primary">voir
+                        <a href="<?= $router->url('nationality', ['id' => $nationality->getNationalitiesId()]) ?>"
+                           class="btn btn-primary">voir
                             plus</a>
                     </p>
                 </div>
@@ -62,14 +62,14 @@ $agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
 
 
         <?php
-        $link = $router->url('agents');
+        $link = $router->url('nationalities');
         if ($currentPage > 2) $link .= '?page=' . ($currentPage - 1);
         ?>
         <a href="<?= $link ?>" class="btn btn-primary">&laquo; Page précédente </a>
     <?php endif ?>
 
     <?php if ($currentPage < $pages): ?>
-        <a href="<?= $router->url('agents') ?>?page=<?= $currentPage + 1 ?>" class="btn btn-primary ms-auto">Page
+        <a href="<?= $router->url('nationalities') ?>?page=<?= $currentPage + 1 ?>" class="btn btn-primary ms-auto">Page
             suivante
             &raquo;</a>
     <?php endif ?>

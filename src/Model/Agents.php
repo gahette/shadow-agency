@@ -13,7 +13,7 @@ private string $agents_lastname;
 private string $agents_firstname;
 private $agents_bod;
 
-private $nationalities = [];
+private array $nationalities = [];
 
     /**
      * @return int

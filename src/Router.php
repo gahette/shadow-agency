@@ -10,7 +10,6 @@ use Exception;
  */
 class Router
 {
-
     private string $viewpath;
     private AltoRouter $router;
 
@@ -29,7 +28,10 @@ class Router
         return $this;
     }
 
-    public function url(string $name, array $params = [])
+    /**
+     * @throws Exception
+     */
+    public function url(string $name, array $params = []): string
     {
     return $this->router->generate($name, $params);
     }
@@ -38,6 +40,7 @@ class Router
     {
         $match = $this->router->match();
         $view = $match['target'];
+        $params = $match['params'];
         $router = $this;
         ob_start();
         require $this->viewpath . DIRECTORY_SEPARATOR . $view . '.php';
