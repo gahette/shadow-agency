@@ -4,6 +4,7 @@ $id = (int)$params['id'];
 
 use App\Model\Agents;
 use App\Model\Nationalities;
+use App\Model\Targets;
 use App\URL;
 use Database\DBConnection;
 
@@ -22,7 +23,7 @@ $title = "Pays {$nationality->getNationalitiesName()}";
 
 $currentPage = URL::getPositiveInt('page', 1);
 $count = (int)$db->getPDO()
-    ->query("SELECT COUNT('agents_id') FROM agents_has_nationalities WHERE nationalities_nationalities_id=" . $nationality->getNationalitiesId())
+    ->query("SELECT COUNT('agents_id') FROM agents WHERE nationalities_nationalities_id=" . $nationality->getNationalitiesId())
     ->fetch(PDO::FETCH_NUM)[0];
 $perPage = 12;
 $pages = ceil($count / $perPage);
@@ -36,17 +37,28 @@ $offset = $perPage * ($currentPage - 1);
 $query = $db->getPDO()->query("
 SELECT a.*
 FROM agents a 
-JOIN agents_has_nationalities ahn on a.agents_id = ahn.agents_agents_id
+    JOIN nationalities n on n.nationalities_id = a.nationalities_nationalities_id
+
 WHERE nationalities_nationalities_id = {$nationality->getNationalitiesId()}
 ORDER BY agents_lastname
 LIMIT $perPage OFFSET $offset");
 $agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
+
+$query = $db->getPDO()->query("
+SELECT t.*
+FROM targets t 
+    JOIN nationalities n on n.nationalities_id = t.nationalities_nationalities_id
+
+WHERE nationalities_nationalities_id = {$nationality->getNationalitiesId()}
+ORDER BY targets_lastname
+LIMIT $perPage OFFSET $offset");
+$targets = $query->fetchAll(PDO::FETCH_CLASS, Targets::class);
 ?>
 
-<h1><?= e($title) ?></h1>
+<h3><?= e($title) ?></h3>
 
 <div class="row">
-    <h2 class="m-3">Agents</h2>
+    <h4 class="m-3">Agents</h4>
     <?php foreach ($agents as $agent): ?>
         <div class="col-md-3">
             <div class="card mb-3">
@@ -63,7 +75,25 @@ $agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
         </div>
     <?php endforeach; ?>
 </div>
-
+<div class="row">
+    <h4 class="m-3">Cibles</h4>
+    <?php foreach ($targets as $target): ?>
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><?= htmlentities($target->getTargetsLastname()) ?></h5>
+                    <p><?= nl2br(htmlentities($target->getTargetsFirstname())) ?></p>
+                    <p class="text-muted"><?= $target->getTargetsBod()->format('d/m/Y') ?></p>
+                    <p>
+                        <a href="<?= $router->url('target', ['id' => $target->getTargetsId()]) ?>"
+                           class="btn btn-primary">voir
+                            plus</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
 
 <!--Pagination en bas-->
 <div class="d-flex justify-content-between my-4">

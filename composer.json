@@ -13,7 +13,9 @@
     "process-timeout": 0
   },
   "autoload": {
-    "files": ["src/helpers.php"],
+    "files": [
+      "src/helpers.php"
+    ],
     "psr-4": {
       "Database\\": "database/",
       "App\\": "src/"
@@ -25,6 +27,6 @@
     "altorouter/altorouter": "^2.0",
     "symfony/var-dumper": "^5.4",
     "filp/whoops": "^2.14",
-    "fzaninotto/faker": "^1.9"
+    "fakerphp/faker": "^1.9"
   }
 }

@@ -19,9 +19,9 @@ if ($agent === false) {
 }
 
 $query = $db->getPDO()->prepare("SELECT n.nationalities_name
-FROM agents_has_nationalities an 
-JOIN nationalities n on an.nationalities_nationalities_id = n.nationalities_id
-WHERE an.agents_agents_id = :id");
+FROM nationalities n 
+JOIN agents a on a.nationalities_nationalities_id = n.nationalities_id
+WHERE a.agents_id = :id");
 $query->execute(['id' => $agent->getAgentsId()]);
 $query->setFetchMode(PDO::FETCH_CLASS, Nationalities::class);
 $nationalities = $query->fetchAll();
@@ -29,11 +29,11 @@ $nationalities = $query->fetchAll();
 $title = "Agents {$agent->getAgentsLastName()}";
 ?>
 
-<h1>Agent <?= e($agent->getAgentsLastName()) ?></h1>
+<h3>Agent <?= e($agent->getAgentsLastName()) ?></h3>
 <p><?= $agent->getAgentsFirstName() ?></p>
 <p class="text-muted">Né le <?= $agent->getAgentsBod()->format('d F Y') ?></p>
 <?php foreach ($nationalities as $nationality): ?>
-    <p><?= e($nationality->getNationalitiesName()) ?></p>
+    <p>Pays : <?= e($nationality->getNationalitiesName()) ?></p>
 <?php endforeach; ?>
 
 

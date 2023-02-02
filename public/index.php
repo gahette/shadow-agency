@@ -45,6 +45,8 @@ $router
     ->get('/', 'dashboard/index', 'home')
     ->get('/agents', 'agents/index', 'agents')
     ->get('/agents/[i:id]', 'agents/show', 'show')
+    ->get('/targets', 'targets/index', 'targets')
+    ->get('/targets/[i:id]', 'targets/show', 'target')
     ->get('/nationalities', 'nationalities/index', 'nationalities')
     ->get('/nationalities/[i:id]', 'nationalities/show', 'nationality')
     ->run();
