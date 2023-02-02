@@ -47,6 +47,8 @@ $router
     ->get('/agents/[i:id]', 'agents/show', 'show')
     ->get('/targets', 'targets/index', 'targets')
     ->get('/targets/[i:id]', 'targets/show', 'target')
+    ->get('/contacts', 'contacts/index', 'contacts')
+    ->get('/contacts/[i:id]', 'contacts/show', 'contact')
     ->get('/nationalities', 'nationalities/index', 'nationalities')
     ->get('/nationalities/[i:id]', 'nationalities/show', 'nationality')
     ->run();

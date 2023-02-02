@@ -35,7 +35,9 @@ for ($i = 0; $i < 50; $i++) {
 for ($i = 0; $i < 50; $i++) {
     $db->getPDO()->exec("INSERT INTO targets SET targets_lastname='$faker->lastName', targets_firstname='$faker->firstName',targets_bod='$faker->date',targets_nickname='$faker->userName',nationalities_nationalities_id= '$faker->randomDigitNotNull'");
 }
-
+for ($i = 0; $i < 50; $i++) {
+    $db->getPDO()->exec("INSERT INTO contacts SET contacts_lastname='$faker->lastName', contacts_firstname='$faker->firstName',contacts_bod='$faker->date',contacts_nickname='$faker->userName',nationalities_nationalities_id= '$faker->randomDigitNotNull'");
+}
 //$password = password_hash('admin', PASSWORD_BCRYPT);
 //$db->getPDO()->exec("INSERT INTO admin SET admin_lastname='Doe', admin_firstname='John', admin_email='john@doe.com', admin_password='$password', admin_created='$faker->date'");
 

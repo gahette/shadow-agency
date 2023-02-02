@@ -3,6 +3,7 @@
 $id = (int)$params['id'];
 
 use App\Model\Agents;
+use App\Model\Contacts;
 use App\Model\Nationalities;
 use App\Model\Targets;
 use App\URL;
@@ -37,8 +38,7 @@ $offset = $perPage * ($currentPage - 1);
 $query = $db->getPDO()->query("
 SELECT a.*
 FROM agents a 
-    JOIN nationalities n on n.nationalities_id = a.nationalities_nationalities_id
-
+JOIN nationalities n on n.nationalities_id = a.nationalities_nationalities_id
 WHERE nationalities_nationalities_id = {$nationality->getNationalitiesId()}
 ORDER BY agents_lastname
 LIMIT $perPage OFFSET $offset");
@@ -47,12 +47,20 @@ $agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
 $query = $db->getPDO()->query("
 SELECT t.*
 FROM targets t 
-    JOIN nationalities n on n.nationalities_id = t.nationalities_nationalities_id
-
+JOIN nationalities n on n.nationalities_id = t.nationalities_nationalities_id
 WHERE nationalities_nationalities_id = {$nationality->getNationalitiesId()}
 ORDER BY targets_lastname
 LIMIT $perPage OFFSET $offset");
 $targets = $query->fetchAll(PDO::FETCH_CLASS, Targets::class);
+
+$query = $db->getPDO()->query("
+SELECT c.*
+FROM contacts c
+JOIN nationalities n on n.nationalities_id = c.nationalities_nationalities_id
+WHERE nationalities_nationalities_id = {$nationality->getNationalitiesId()}
+ORDER BY contacts_lastname
+LIMIT $perPage OFFSET $offset");
+$contacts = $query->fetchAll(PDO::FETCH_CLASS, Contacts::class);
 ?>
 
 <h3><?= e($title) ?></h3>
@@ -87,6 +95,24 @@ $targets = $query->fetchAll(PDO::FETCH_CLASS, Targets::class);
                     <p>
                         <a href="<?= $router->url('target', ['id' => $target->getTargetsId()]) ?>"
                            class="btn btn-primary">voir
+                            plus</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+<div class="row">
+    <h4 class="m-3">Contacts</h4>
+    <?php foreach ($contacts as $contact): ?>
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><?= htmlentities($contact->getContactsLastname()) ?></h5>
+                    <p><?= nl2br(htmlentities($contact->getContactsFirstname())) ?></p>
+                    <p class="text-muted"><?= $contact->getContactsBod()->format('d/m/Y') ?></p>
+                    <p>
+                        <a href="<?= $router->url('contact', ['id' => $contact->getContactsId()]) ?>" class="btn btn-primary">voir
                             plus</a>
                     </p>
                 </div>

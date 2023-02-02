@@ -41,6 +41,10 @@ class Targets
         return $this->targets_firstname;
     }
 
+    /**
+     * @return DateTime
+     * @throws Exception
+     */
     public function getTargetsBod(): DateTime
     {
         return new DateTime($this->targets_bod);

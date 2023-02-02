@@ -39,6 +39,10 @@ private array $nationalities = [];
         return $this->agents_firstname;
     }
 
+    /**
+     * @return DateTime
+     * @throws Exception
+     */
     public function getAgentsBod(): DateTime
     {
         return new DateTime($this->agents_bod);

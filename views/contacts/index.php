@@ -1,10 +1,11 @@
 <?php
 
-use App\Model\Targets;
+
+use App\Model\Contacts;
 use App\URL;
 use Database\DBConnection;
 
-$title = 'Cibles';
+$title = 'Contacts';
 
 $db = new DBConnection();
 
@@ -14,7 +15,7 @@ $currentPage = URL::getPositiveInt('page', 1);
 
 //Récupération du nombre d'agents sous forme de tableau numérique avec seulement la premiere colonne
 //forçage de type avec (int)
-$count = (int)$db->getPDO()->query("SELECT COUNT('targets_id') FROM targets")->fetch(PDO::FETCH_NUM)[0];
+$count = (int)$db->getPDO()->query("SELECT COUNT('contacts_id') FROM contacts")->fetch(PDO::FETCH_NUM)[0];
 
 //variable d'élément par page
 $perPage = 12;
@@ -29,24 +30,24 @@ if ($currentPage > $pages) {
 $offset = $perPage * ($currentPage - 1);
 
 
-$query = $db->getPDO()->query("SELECT * FROM targets ORDER BY targets_lastname LIMIT $perPage OFFSET $offset");
-$targets = $query->fetchAll(PDO::FETCH_CLASS, Targets::class);
+$query = $db->getPDO()->query("SELECT * FROM contacts ORDER BY contacts_lastname LIMIT $perPage OFFSET $offset");
+$contacts = $query->fetchAll(PDO::FETCH_CLASS, Contacts::class);
 ?>
 
 
-<h3>Les cibles</h3>
+<h3>Les contacts</h3>
 
 
 <div class="row">
-    <?php foreach ($targets as $target): ?>
+    <?php foreach ($contacts as $contact): ?>
         <div class="col-md-3">
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title"><?= htmlentities($target->getTargetsLastname()) ?></h5>
-                    <p><?= nl2br(htmlentities($target->getTargetsFirstname())) ?></p>
-                    <p class="text-muted"><?= $target->getTargetsBod()->format('d/m/Y') ?></p>
+                    <h5 class="card-title"><?= htmlentities($contact->getContactsLastname()) ?></h5>
+                    <p><?= nl2br(htmlentities($contact->getContactsFirstname())) ?></p>
+                    <p class="text-muted"><?= $contact->getContactsBod()->format('d/m/Y') ?></p>
                     <p>
-                        <a href="<?= $router->url('target', ['id' => $target->getTargetsId()]) ?>" class="btn btn-primary">voir
+                        <a href="<?= $router->url('contact', ['id' => $contact->getContactsId()]) ?>" class="btn btn-primary">voir
                             plus</a>
                     </p>
                 </div>
@@ -62,14 +63,14 @@ $targets = $query->fetchAll(PDO::FETCH_CLASS, Targets::class);
 
 
         <?php
-        $link = $router->url('targets');
+        $link = $router->url('contacts');
         if ($currentPage > 2) $link .= '?page=' . ($currentPage - 1);
         ?>
         <a href="<?= $link ?>" class="btn btn-primary">&laquo; Page précédente </a>
     <?php endif ?>
 
     <?php if ($currentPage < $pages): ?>
-        <a href="<?= $router->url('targets') ?>?page=<?= $currentPage + 1 ?>" class="btn btn-primary ms-auto">Page
+        <a href="<?= $router->url('contacts') ?>?page=<?= $currentPage + 1 ?>" class="btn btn-primary ms-auto">Page
             suivante
             &raquo;</a>
     <?php endif ?>
