@@ -3,6 +3,7 @@ $id = (int)$params['id'];
 
 use App\Model\Agents;
 use App\Model\Nationalities;
+use App\Model\Specialities;
 use Database\DBConnection;
 
 
@@ -26,7 +27,16 @@ $query->execute(['id' => $agent->getAgentsId()]);
 $query->setFetchMode(PDO::FETCH_CLASS, Nationalities::class);
 $nationalities = $query->fetchAll();
 
-$title = "Agents {$agent->getAgentsLastName()}";
+
+$query = $db->getPDO()->prepare('SELECT s.specialities_name
+FROM agents_specialities asp 
+Join specialities s on s.specialities_id = asp.specialities_specialities_id
+WHERE asp.agents_agents_id = :id');
+$query->execute(['id'=>$agent->getAgentsId()]);
+$query->setFetchMode(PDO::FETCH_CLASS, Specialities::class);
+$specialities = $query->fetchAll();
+
+$title = "{$agent->getAgentsLastName()}";
 ?>
 
 <h3>Agent <?= e($agent->getAgentsLastName()) ?></h3>
@@ -35,6 +45,7 @@ $title = "Agents {$agent->getAgentsLastName()}";
 <?php foreach ($nationalities as $nationality): ?>
     <p>Pays : <?= e($nationality->getNationalitiesName()) ?></p>
 <?php endforeach; ?>
-
-
-
+<p>Spécialités :
+<?php foreach ($specialities as $speciality): ?>
+<?= e($speciality->getSpecialitiesName()) ?>, </p>
+<?php endforeach; ?>

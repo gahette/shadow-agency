@@ -1,10 +1,10 @@
 <?php
 
-use App\Model\Agents;
+use App\Model\Typeshideouts;
 use App\URL;
 use Database\DBConnection;
 
-$title = 'Agents';
+$title = 'Types de planques';
 
 $db = new DBConnection();
 
@@ -14,7 +14,7 @@ $currentPage = URL::getPositiveInt('page', 1);
 
 //Récupération du nombre d'agents sous forme de tableau numérique avec seulement la premiere colonne
 //forçage de type avec (int)
-$count = (int)$db->getPDO()->query("SELECT COUNT('agents_id') FROM agents")->fetch(PDO::FETCH_NUM)[0];
+$count = (int)$db->getPDO()->query("SELECT COUNT('types_hideouts_id') FROM types_hideouts")->fetch(PDO::FETCH_NUM)[0];
 
 //variable d'élément par page
 $perPage = 12;
@@ -29,12 +29,12 @@ if ($currentPage > $pages) {
 $offset = $perPage * ($currentPage - 1);
 
 
-$query = $db->getPDO()->query("SELECT * FROM agents ORDER BY agents_lastname LIMIT $perPage OFFSET $offset");
-$agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
+$query = $db->getPDO()->query("SELECT * FROM types_hideouts ORDER BY types_hideouts_name LIMIT $perPage OFFSET $offset");
+$types_hideouts = $query->fetchAll(PDO::FETCH_CLASS, Typeshideouts::class);
 ?>
 
 
-<h3>Mes agents</h3>
+<h3>Les spécialités</h3>
 
 
 <div class="row">
@@ -42,23 +42,15 @@ $agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
 
         <thead>
         <tr>
-            <th scope="col"><h4>Code agents</h4></h></th>
+            <th scope="col"><h4>Code spécialité</h4></h></th>
             <th scope="col"><h4>Noms</h4></th>
-            <th scope="col"><h4>Prénoms</h4></th>
-            <th scope="col"><h4>Date des naissances</h4></th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($agents as $agent): ?>
+        <?php foreach ($types_hideouts as $types_hideout): ?>
             <tr>
-                <th scope="row"><h5><?= htmlentities($agent->getAgentsId()) ?></h5></th>
-                <td><h5><?= htmlentities($agent->getAgentsLastname()) ?></h5></td>
-                <td><?= nl2br(htmlentities($agent->getAgentsFirstname())) ?></td>
-                <td class="text-muted"><?= $agent->getAgentsBod()->format('d/m/Y') ?></td>
-                <td>
-                    <a href="<?= $router->url('show', ['id' => $agent->getAgentsId()]) ?>" class="btn btn-primary">voir
-                        plus</a>
-                </td>
+                <th scope="row"><h5><?= htmlentities($types_hideout->getTypesHideoutsId()) ?></h5></th>
+                <td><h5><?= htmlentities($types_hideout->getTypesHideoutsName()) ?></h5></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -71,14 +63,14 @@ $agents = $query->fetchAll(PDO::FETCH_CLASS, Agents::class);
 
 
         <?php
-        $link = $router->url('agents');
+        $link = $router->url('typeshideouts');
         if ($currentPage > 2) $link .= '?page=' . ($currentPage - 1);
         ?>
         <a href="<?= $link ?>" class="btn btn-primary">&laquo; Page précédente </a>
     <?php endif ?>
 
     <?php if ($currentPage < $pages): ?>
-        <a href="<?= $router->url('agents') ?>?page=<?= $currentPage + 1 ?>" class="btn btn-primary ms-auto">Page
+        <a href="<?= $router->url('typeshideouts') ?>?page=<?= $currentPage + 1 ?>" class="btn btn-primary ms-auto">Page
             suivante
             &raquo;</a>
     <?php endif ?>

@@ -18,7 +18,7 @@ $currentPage = URL::getPositiveInt('page', 1);
 $count = (int)$db->getPDO()->query("SELECT COUNT('nationalities_id') FROM nationalities")->fetch(PDO::FETCH_NUM)[0];
 
 //variable d'élément par page
-$perPage = 20;
+$perPage = 12;
 
 //calcul du nombre de pages
 $pages = ceil($count / $perPage);
@@ -35,21 +35,16 @@ $nationalities = $query->fetchAll(PDO::FETCH_CLASS, Nationalities::class);
 ?>
 
 
-<h1>Pays </h1>
+<h2>Pays </h2>
 
 
 <div class="row">
     <?php foreach ($nationalities as $nationality): ?>
-        <div class="col-md-3">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title"><?= htmlentities($nationality->getNationalitiesName()) ?></h5>
-                    <p>
-                        <a href="<?= $router->url('nationality', ['id' => $nationality->getNationalitiesId()]) ?>"
-                           class="btn btn-primary">voir
-                            plus</a>
-                    </p>
-                </div>
+        <div>
+            <div class="list-group">
+                <h5 class="list-group-item d-flex justify-content-between"><?= htmlentities($nationality->getNationalitiesName()) ?>
+                    <a href="<?= $router->url('nationality', ['id' => $nationality->getNationalitiesId()]) ?>"
+                       class="btn btn-primary">Détails</a></h5>
             </div>
         </div>
     <?php endforeach; ?>
