@@ -93,6 +93,6 @@ for ($i = 0; $i < 100; $i++) {
 
 
 
-//$password = password_hash('admin', PASSWORD_BCRYPT);
-//$db->getPDO()->exec("INSERT INTO admin SET admin_lastname='Doe', admin_firstname='John', admin_email='john@doe.com', admin_password='$password', admin_created='$faker->date'");
+$password = password_hash('admin', PASSWORD_BCRYPT);
+$db->getPDO()->exec("INSERT INTO users SET users_lastname='Doe', users_firstname='John', users_email='john@doe.com', users_password='$password', users_created='$faker->date'");
 

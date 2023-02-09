@@ -13,7 +13,9 @@ private string $agents_lastname;
 private string $agents_firstname;
 private $agents_bod;
 
-private array $nationalities = [];
+private $nationality;
+
+
 
     /**
      * @return int
@@ -48,4 +50,11 @@ private array $nationalities = [];
         return new DateTime($this->agents_bod);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNationality()
+    {
+        return $this->nationality;
+    }
 }

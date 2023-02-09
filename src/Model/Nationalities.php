@@ -4,8 +4,8 @@ namespace App\Model;
 
 class Nationalities
 {
-private int $nationalities_id;
-private string $nationalities_name;
+    private int $nationalities_id;
+    private string $nationalities_name;
 
     /**
      * @return int
@@ -22,6 +22,5 @@ private string $nationalities_name;
     {
         return $this->nationalities_name;
     }
-
 
 }

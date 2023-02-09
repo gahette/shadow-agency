@@ -37,9 +37,18 @@ class DBConnection
     }
 
 
-//    public function query($statement)
-//    {
-//        $req = $this->getPDO()->query($statement);
-//        return $req->fetchAll();
-//    }
+    public function query(string $sql, int $param = null, bool $single = null)
+    {
+        $method = is_null($param) ? 'query' : 'prepare';
+        $fetch = is_null($single) ? 'fetchAll' : 'fetch';
+        $stmt = $this->pdo->getPDO()->$method($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->pdo]);
+
+        if ($method === 'query') {
+            return $stmt->$fetch();
+        }else{
+            $stmt->execute([$param]);
+            return $stmt->$fetch();
+        }
+    }
 }
