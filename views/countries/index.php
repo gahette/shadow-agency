@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Model\Nationalities;
+use App\Model\Countries;
 use App\URL;
 use Database\DBConnection;
 
@@ -31,7 +31,7 @@ $offset = $perPage * ($currentPage - 1);
 
 
 $query = $db->getPDO()->query("SELECT * FROM nationalities ORDER BY nationalities_name LIMIT $perPage OFFSET $offset");
-$nationalities = $query->fetchAll(PDO::FETCH_CLASS, Nationalities::class);
+$nationalities = $query->fetchAll(PDO::FETCH_CLASS, Countries::class);
 ?>
 
 

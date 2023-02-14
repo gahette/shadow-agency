@@ -1,7 +1,7 @@
 <?php
 $id = (int)$params['id'];
 
-use App\Model\Nationalities;
+use App\Model\Countries;
 use App\Model\Targets;
 use Database\DBConnection;
 
@@ -16,19 +16,19 @@ if ($target === false) {
     throw new Exception("Aucune cible ne correspond à cet ID");
 }
 
-$query = $db->getPDO()->prepare("SELECT n.nationalities_name
-FROM nationalities n 
-JOIN targets t on t.nationalities_nationalities_id = n.nationalities_id
+$query = $db->getPDO()->prepare("SELECT c.*
+FROM countries c 
+JOIN targets t on c.countries_id = t.nationalities_nationalities_id
 WHERE t.targets_id = :id");
 $query->execute(['id' => $target->getTargetsId()]);
-$query->setFetchMode(PDO::FETCH_CLASS, Nationalities::class);
-$nationalities = $query->fetchAll();
+$query->setFetchMode(PDO::FETCH_CLASS, Countries::class);
+$countries = $query->fetchAll();
 
 $title = "Cibles {$target->getTargetsLastName()}";
 ?>
     <h3>Cible <?= e($target->getTargetsLastName()) ?></h3>
     <p><?= $target->getTargetsFirstName() ?></p>
     <p class="text-muted">Né le <?= $target->getTargetsBod()->format('d F Y') ?></p>
-<?php foreach ($nationalities as $nationality): ?>
-    <p>Pays : <?= e($nationality->getNationalitiesName()) ?></p>
+<?php foreach ($countries as $country): ?>
+    <p>Pays : <?= e($country->getNationalitiesName()) ?></p>
 <?php endforeach; ?>

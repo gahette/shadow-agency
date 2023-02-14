@@ -51,8 +51,8 @@ $router
     ->get('/contacts/[i:id]', 'contacts/show', 'contact')
     ->get('/hideouts', 'hideouts/index', 'hideouts')
     ->get('/hideouts/[i:id]', 'hideouts/show', 'hideout')
-    ->get('/nationalities', 'nationalities/index', 'nationalities')
-    ->get('/nationalities/[i:id]', 'nationalities/show', 'nationality')
+    ->get('/countries', 'countries/index', 'countries')
+    ->get('/countries/[i:id]', 'countries/show', 'country')
     ->get('/specialities', 'specialities/index','specialities')
     ->get('/typeshideouts', 'typeshideouts/index','typeshideouts')
     ->run();

@@ -10,7 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-class DBConnection
+class DBConnection extends \PDO
 {
     private string $dbname;
     private string $host;
@@ -37,18 +37,18 @@ class DBConnection
     }
 
 
-    public function query(string $sql, int $param = null, bool $single = null)
-    {
-        $method = is_null($param) ? 'query' : 'prepare';
-        $fetch = is_null($single) ? 'fetchAll' : 'fetch';
-        $stmt = $this->pdo->getPDO()->$method($sql);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->pdo]);
-
-        if ($method === 'query') {
-            return $stmt->$fetch();
-        }else{
-            $stmt->execute([$param]);
-            return $stmt->$fetch();
-        }
-    }
+//    public function query(string $sql, int $param = null, bool $single = null)
+//    {
+//        $method = is_null($param) ? 'query' : 'prepare';
+//        $fetch = is_null($single) ? 'fetchAll' : 'fetch';
+//        $stmt = $this->getPDO()->$method($sql);
+//        $stmt->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->pdo]);
+//
+//        if ($method === 'query') {
+//            return $stmt->$fetch();
+//        }else{
+//            $stmt->execute([$param]);
+//            return $stmt->$fetch();
+//        }
+//    }
 }

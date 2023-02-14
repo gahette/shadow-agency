@@ -4,7 +4,7 @@ $id = (int)$params['id'];
 
 use App\Model\Agents;
 use App\Model\Contacts;
-use App\Model\Nationalities;
+use App\Model\Countries;
 use App\Model\Targets;
 use App\URL;
 use Database\DBConnection;
@@ -13,7 +13,7 @@ use Database\DBConnection;
 $db = new DBConnection();
 $query = $db->getPDO()->prepare('SELECT * FROM nationalities WHERE nationalities_id = :id');
 $query->execute(['id' => $id]);
-$query->setFetchMode(PDO::FETCH_CLASS, Nationalities::class);
+$query->setFetchMode(PDO::FETCH_CLASS, Countries::class);
 $nationality = $query->fetch();
 
 if ($nationality === false) {

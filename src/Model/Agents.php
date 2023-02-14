@@ -8,13 +8,14 @@ use Exception;
 
 class Agents
 {
-private int $agents_id;
-private string $agents_lastname;
-private string $agents_firstname;
-private $agents_bod;
+    private int $agents_id;
+    private string $agents_lastname;
+    private string $agents_firstname;
+    private $agents_bod;
 
-private $nationality;
+    private $countries = [];
 
+    private $specialities = [];
 
 
     /**
@@ -51,10 +52,30 @@ private $nationality;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getNationality()
+    public function getSpecialities(): array
     {
-        return $this->nationality;
+        return $this->specialities;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCountries(): array
+    {
+        return $this->countries;
+    }
+
+    public function addSpeciality(Specialities $specialities): void
+    {
+        $this->specialities[] = $specialities;
+        $specialities->setAgentSpe($this);
+    }
+
+    public function addCountry(Countries $countries): void
+    {
+        $this->countries[] = $countries;
+        $countries->setAgentNat($this);
     }
 }

@@ -2,7 +2,7 @@
 $id = (int)$params['id'];
 
 use App\Model\Contacts;
-use App\Model\Nationalities;
+use App\Model\Countries;
 use App\Model\Targets;
 use Database\DBConnection;
 
@@ -22,7 +22,7 @@ FROM nationalities n
 JOIN contacts c on n.nationalities_id = c.nationalities_nationalities_id
 WHERE c.contacts_id = :id");
 $query->execute(['id' => $contact->getContactsId()]);
-$query->setFetchMode(PDO::FETCH_CLASS, Nationalities::class);
+$query->setFetchMode(PDO::FETCH_CLASS, Countries::class);
 $nationalities = $query->fetchAll();
 
 $title = "Cibles {$contact->getContactsLastName()}";

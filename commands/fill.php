@@ -16,7 +16,7 @@ $db->getPDO()->exec('TRUNCATE TABLE contacts');
 $db->getPDO()->exec('TRUNCATE TABLE targets');
 $db->getPDO()->exec('TRUNCATE TABLE hideouts');
 $db->getPDO()->exec('TRUNCATE TABLE status');
-$db->getPDO()->exec('TRUNCATE TABLE specialities');
+//$db->getPDO()->exec('TRUNCATE TABLE specialities');
 $db->getPDO()->exec('TRUNCATE TABLE types_hideouts');
 $db->getPDO()->exec('TRUNCATE TABLE types_missions');
 $db->getPDO()->exec('TRUNCATE TABLE missions');
@@ -28,8 +28,8 @@ $targets = [];
 $specialities = [];
 $missions = [];
 
-for ($i = 0; $i < 50; $i++) {
-    $db->getPDO()->exec("INSERT INTO agents SET agents_lastname='$faker->lastName', agents_firstname='$faker->firstName',agents_bod='$faker->date',nationalities_nationalities_id= '$faker->randomDigitNotNull'");
+for ($i = 0; $i < 5; $i++) {
+    $db->getPDO()->exec("INSERT INTO agents SET agents_lastname='$faker->lastName', agents_firstname='$faker->firstName',agents_bod='$faker->date'");
     $agents[] = $db->getPDO()->lastInsertId();
 }
 for ($i = 0; $i < 10; $i++) {
@@ -38,16 +38,17 @@ for ($i = 0; $i < 10; $i++) {
 for ($i = 0; $i < 10; $i++) {
     $db->getPDO()->exec("INSERT INTO types_missions SET types_missions_name='$faker->word'");
 }
-for ($i = 0; $i < 20; $i++) {
-    $db->getPDO()->exec("INSERT INTO missions SET missions_title='$faker->sentence', missions_description='$faker->text',missions_nickname='$faker->userName',missions_created='$faker->date',missions_closed= '$faker->date',nationalities_nationalities_id= '$faker->randomDigitNotNull',status_status_id='$faker->randomDigitNotNull', types_missions_types_missions_id='$faker->randomDigitNotNull' ");
-    $missions[] = $db->getPDO()->lastInsertId();
-}
-foreach ($agents as $agent) {
-    $randomSpecialities = $faker->randomElements($specialities, rand(0, count($specialities)));
-    foreach ($randomSpecialities as $speciality) {
-        $db->getPDO()->exec("INSERT INTO agents_specialities SET agents_agents_id=$agent, specialities_specialities_id=$speciality");
-    }
-}
+//for ($i = 0; $i < 20; $i++) {
+//    $db->getPDO()->exec("INSERT INTO missions SET missions_title='$faker->sentence', missions_description='$faker->text',missions_nickname='$faker->userName',missions_created='$faker->date',missions_closed= '$faker->date',countries_countries_id= '$faker->randomDigitNotNull',status_status_id='$faker->randomDigitNotNull', types_missions_types_missions_id='$faker->randomDigitNotNull' ");
+//    $missions[] = $db->getPDO()->lastInsertId();
+//}
+//foreach ($agents as $agent) {
+//    $randomSpecialities = $faker->randomNumber();
+//    foreach ($randomSpecialities as $speciality) {
+//        $db->getPDO()->exec("INSERT INTO agents_specialities SET agents_agents_id=$agent, specialities_specialities_id=$speciality");
+//    }
+
+//}
 foreach ($missions as $mission) {
     $randomMissions = $faker->randomElements($missions, rand(0, count($missions)));
     foreach ($randomMissions as $randomMission) {
@@ -72,23 +73,23 @@ foreach ($missions as $mission) {
         $db->getPDO()->exec("INSERT INTO missions_targets SET missions_missions_id=$mission, targets_targets_id=$randomTarget");
     }
 }
-for ($i = 0; $i < 10; $i++) {
-    $db->getPDO()->exec("INSERT INTO specialities SET specialities_name='$faker->word'");
-    $specialities[] = $db->getPDO()->lastInsertId();
-}
+//for ($i = 0; $i < 10; $i++) {
+//    $db->getPDO()->exec("INSERT INTO specialities SET specialities_name='$faker->word'");
+//    $specialities[] = $db->getPDO()->lastInsertId();
+//}
 for ($i = 0; $i < 50; $i++) {
-    $db->getPDO()->exec("INSERT INTO targets SET targets_lastname='$faker->lastName', targets_firstname='$faker->firstName',targets_bod='$faker->date',targets_nickname='$faker->userName',nationalities_nationalities_id= '$faker->randomDigitNotNull'");
+    $db->getPDO()->exec("INSERT INTO targets SET targets_lastname='$faker->lastName', targets_firstname='$faker->firstName',targets_bod='$faker->date',targets_nickname='$faker->userName'");
     $targets[] = $db->getPDO()->lastInsertId();
 }
 for ($i = 0; $i < 50; $i++) {
-    $db->getPDO()->exec("INSERT INTO contacts SET contacts_lastname='$faker->lastName', contacts_firstname='$faker->firstName',contacts_bod='$faker->date',contacts_nickname='$faker->userName',nationalities_nationalities_id= '$faker->randomDigitNotNull'");
+    $db->getPDO()->exec("INSERT INTO contacts SET contacts_lastname='$faker->lastName', contacts_firstname='$faker->firstName',contacts_bod='$faker->date',contacts_nickname='$faker->userName'");
     $contacts[] = $db->getPDO()->lastInsertId();
 }
 for ($i = 0; $i < 10; $i++) {
     $db->getPDO()->exec("INSERT INTO types_hideouts SET types_hideouts_name='$faker->word'");
 }
 for ($i = 0; $i < 100; $i++) {
-    $db->getPDO()->exec("INSERT INTO hideouts SET hideouts_address='$faker->address', nationalities_nationalities_id= '$faker->randomDigitNotNull', types_hideouts_types_hideouts_id= '$faker->randomDigitNotNull',missions_missions_id= '$faker->randomDigitNotNull'");
+    $db->getPDO()->exec("INSERT INTO hideouts SET hideouts_address='$faker->address', types_hideouts_types_hideouts_id= '$faker->randomDigitNotNull'");
 }
 
 
