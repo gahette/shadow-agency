@@ -5,7 +5,6 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 
-
 //chargement du fichier autoload de composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -45,6 +44,8 @@ $router
     ->get('/', 'dashboard/index', 'home')
     ->get('/agents', 'agents/index', 'agents')
     ->get('/agents/[i:id]', 'agents/show', 'show')
+    ->match('/agents/edit/[i:id]', 'agents/edit', 'agents_edit')
+    ->post('/agents/[i:id]/delete', 'agents/delete', 'agents_delete')
     ->get('/targets', 'targets/index', 'targets')
     ->get('/targets/[i:id]', 'targets/show', 'target')
     ->get('/contacts', 'contacts/index', 'contacts')
@@ -53,7 +54,7 @@ $router
     ->get('/hideouts/[i:id]', 'hideouts/show', 'hideout')
     ->get('/countries', 'countries/index', 'countries')
     ->get('/countries/[i:id]', 'countries/show', 'country')
-    ->get('/specialities', 'specialities/index','specialities')
-    ->get('/typeshideouts', 'typeshideouts/index','typeshideouts')
+    ->get('/specialities', 'specialities/index', 'specialities')
+    ->get('/typeshideouts', 'typeshideouts/index', 'typeshideouts')
     ->run();
 

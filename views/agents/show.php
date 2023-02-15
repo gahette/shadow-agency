@@ -1,10 +1,7 @@
 <?php
 $id = (int)$params['id'];
 
-use App\Model\Agents;
-use App\Model\Countries;
-use App\Model\Specialities;
-use App\Table\AgentsTable;
+
 use App\Table\AgentTable;
 use Database\DBConnection;
 

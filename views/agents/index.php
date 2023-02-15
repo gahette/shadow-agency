@@ -1,23 +1,29 @@
 <?php
 
+use App\Auth;
 use App\Table\AgentsTable;
 use Database\DBConnection;
+
+
+Auth::check();
 
 $title = 'Agents';
 
 
 $pdo = new DBConnection();
-
+$link = $router->url('agents');
 $table = new AgentsTable($pdo->getPDO()); //instance de PDO dans DBConnection.php
 [$agents, $pagination] = $table->findPaginated();
-
-
-$link = $router->url('agents');
 
 ?>
 
 <h3>Mes agents</h3>
 
+<?php
+if (isset($_GET['delete'])) ?>
+<div class="alert alert-success">
+    L'enregistrement a bien été supprimé
+</div>
 
 <div class="row">
     <table class="table">
@@ -51,8 +57,19 @@ $link = $router->url('agents');
                     <?php endforeach; ?>
                 </td>
 
-                <td><a href="<?= $router->url('show', ['id' => $agent->getAgentsId()]) ?>" class="btn btn-primary">voir
-                        plus</a>
+                <td><a href="<?= $router->url('show', ['id' => $agent->getAgentsId()]) ?>" class="btn btn-info">voir
+                    </a>
+                </td>
+                <td><a href="<?= $router->url('agents_edit', ['id' => $agent->getAgentsId()]) ?>"
+                       class="btn btn-warning">Editer
+                    </a>
+                </td>
+                <td>
+                    <form action="<?= $router->url('agents_delete', ['id' => $agent->getAgentsId()]) ?>"
+                          method="post"
+                          onclick="return confirm('Voulez-vous vraiment effectuer cette action ?')">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach ?>

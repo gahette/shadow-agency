@@ -78,4 +78,30 @@ class Agents
         $this->countries[] = $countries;
         $countries->setAgentNat($this);
     }
+
+    /**
+     * @param string $agents_lastname
+     */
+    public function setAgentsLastname(string $agents_lastname): void
+    {
+        $this->agents_lastname = $agents_lastname;
+    }
+
+    /**
+     * @param string $agents_firstname
+     */
+    public function setAgentsFirstname(string $agents_firstname): void
+    {
+        $this->agents_firstname = $agents_firstname;
+    }
+
+    /**
+     * @param mixed $agents_bod
+     */
+    public function setAgentsBod($agents_bod): void
+    {
+        $this->agents_bod = $agents_bod;
+    }
+
+
 }

@@ -27,6 +27,7 @@
     "altorouter/altorouter": "^2.0",
     "symfony/var-dumper": "^5.4",
     "filp/whoops": "^2.14",
-    "fakerphp/faker": "^1.9"
+    "fakerphp/faker": "^1.9",
+    "vlucas/valitron": "^1.4"
   }
 }
